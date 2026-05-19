@@ -1,0 +1,44 @@
+BANKING TRANSACTION ANALYSIS REPORT
+Generated : 2026-05-19 17:31
+=======================================================
+
+FINDINGS
+  Total transactions loaded : 2013
+  Completed transactions    : 1789
+  Date range               : 2023-01-01 to 2024-12-30
+  Unique accounts          : 50
+  
+--- Amount Anomalies ---
+  IQR upper bound          : ₹14,829
+  Flagged (dual-method)    : 50 transactions
+  
+--- Velocity Anomalies ---
+  Flagged accounts (burst): 1
+  Flagged transactions    : 3
+  
+--- Dormant Account Spikes ---
+  Accounts with dormant spike: 1
+  
+--- Category Patterns ---
+  Top 3 categories by spend: ['Travel', 'Retail', 'ATM Withdrawal']
+  Top 3 account for 67.9% of total spend
+  
+--- Overall ---
+  Total flagged transactions : 58 (3.2%)
+
+METHODOLOGY
+  Outlier Detection   : Z-score > 3 AND IQR × 3 (dual-method)
+  Velocity Detection  : > 5 transactions in any 60-minute window per account
+  Dormant Spike       : ≥ 30-day gap, then ≥ 3 transactions in one day
+
+ASSUMPTIONS
+  1. Only 'completed' transactions used for spend analysis.
+  2. 'Failed' and 'reversed' transactions retained for pattern analysis.
+  3. Dual-method outlier detection used to reduce false positives.
+  4. Thresholds are configurable constants at top of script.
+
+CHARTS GENERATED
+  output/charts/monthly_spend.png
+  output/charts/category_distribution.png
+  output/charts/top_merchants.png
+  output/charts/anomaly_scatter.png
